@@ -387,3 +387,29 @@ renderProducts(); renderSavedCount();
     }
   });
 })();
+
+/* Signature welcome loader and refined in-page navigation */
+(() => {
+  const finishLoading = () => {
+    document.body.classList.remove("site-loading");
+    document.body.classList.add("site-ready");
+  };
+  if (document.readyState === "complete") {
+    window.setTimeout(finishLoading, 500);
+  } else {
+    window.addEventListener("load", () => window.setTimeout(finishLoading, 500), {once:true});
+  }
+  window.setTimeout(finishLoading, 2400);
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", event => {
+      const id = link.getAttribute("href");
+      if (!id || id === "#") return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({behavior:reduced ? "auto" : "smooth", block:"start"});
+      if (history.replaceState) history.replaceState(null, "", id);
+    });
+  });
+})();
