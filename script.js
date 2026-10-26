@@ -117,7 +117,7 @@ document.querySelector(".curated-collections").addEventListener("click", event =
   $("resultCount").textContent = labels[edit] + " · " + chosen.length + " curated picks";
   $("clearSearch").hidden = true;
   document.querySelector(".shop-toolbar").scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",block:"start"});
-};
+});
 $("filters").addEventListener("click", event => {
   const button = event.target.closest("[data-category]");
   if (!button) return;
