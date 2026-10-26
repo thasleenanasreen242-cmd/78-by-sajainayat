@@ -82,3 +82,32 @@ body{background:var(--cream);letter-spacing:.01em}
 @media (prefers-reduced-motion: reduce) {
   .hero-visual, .hero-image-main, .hero-image-stamp, .floating-note, .product-photo { transform: none !important; }
 }
+
+
+/* Virtual styling room */
+.tryon-section{background:linear-gradient(145deg,#fffaf7 0%,#f7e5e9 100%);border-block:1px solid #ead9de}
+.tryon-room{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,6vw,76px);align-items:start;max-width:1020px}
+.tryon-upload-panel,.tryon-style-panel{min-width:0}
+.tryon-preview{position:relative;aspect-ratio:3/4;max-height:590px;overflow:hidden;background:linear-gradient(145deg,#efd1d9,#fffaf7);border:1px solid #ead9de;display:flex;align-items:center;justify-content:center}
+.tryon-preview:after{content:"";position:absolute;inset:12px;border:1px solid #ffffffa8;pointer-events:none}
+.tryon-preview>img{width:100%;height:100%;object-fit:contain;position:absolute;inset:0;background:#f7e5e9}
+.tryon-placeholder{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:24px;color:#8e465c}
+.tryon-placeholder span{font:64px var(--serif)}
+.tryon-placeholder strong{font:25px var(--serif);font-weight:500}
+.tryon-placeholder small{font-size:10px;color:#89777d}
+.tryon-upload-button{width:100%;margin-top:14px;cursor:pointer}
+.tryon-clear{display:block;margin:10px auto 0;border:0;border-bottom:1px solid #b8667b;background:transparent;color:#8e465c;font-size:10px;padding:6px;cursor:pointer}
+.tryon-privacy,.tryon-disclaimer{font-size:10px;line-height:1.8;color:#89777d}
+.tryon-privacy{text-align:center;margin:12px 0}
+.tryon-style-panel{padding:10px 0}
+.tryon-moods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:18px 0 22px}
+.tryon-mood{padding:13px 12px;background:#fffaf7;border:1px solid #ead9de;text-align:left;font-size:10px;color:#5e4850;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.tryon-mood span{color:#b8667b;margin-right:7px}
+.tryon-mood:hover{transform:translateY(-2px)}
+.tryon-mood.active{background:#30232a;color:#fffaf7;border-color:#30232a}
+.tryon-look-card{display:grid;grid-template-columns:minmax(100px,.7fr) 1fr;gap:18px;align-items:center;padding:14px;background:#fffaf7;border:1px solid #ead9de}
+.tryon-look-card img{width:100%;aspect-ratio:3/4;object-fit:cover;background:#f3e1e6}
+.tryon-look-card h3{font:25px/1.15 var(--serif);font-weight:500;margin:5px 0 10px}
+.tryon-look-card p:last-child{font-size:11px;line-height:1.8;color:#89777d}
+.tryon-disclaimer{margin:16px 0}
+@media(max-width:700px){.tryon-room{grid-template-columns:1fr;gap:30px}.tryon-preview{max-height:500px}.tryon-style-panel{padding:0}.tryon-look-card{grid-template-columns:minmax(110px,.65fr) 1fr}.tryon-moods{gap:7px}.tryon-mood{font-size:9px;padding:12px 9px}}
