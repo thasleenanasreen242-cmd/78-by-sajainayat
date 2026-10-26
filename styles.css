@@ -205,3 +205,22 @@ main{animation:page-arrive .7s var(--ease) both}
 .review-trust{text-align:center;font-size:9px;line-height:1.8;color:var(--muted);margin-top:24px}
 @media(max-width:760px){.packaging-layout{grid-template-columns:1fr;gap:25px}.packaging-art{min-height:310px}.packaging-copy{padding-bottom:8px}.review-grid{grid-template-columns:1fr}.review-card{min-height:220px}.reviews-section .section-heading{margin-bottom:28px}}
 @media(prefers-reduced-motion:reduce){.brand-loader,.brand-loader *,.gift-box,main{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* Curated edits */
+.curated-collections{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:34px;margin-bottom:12px}
+.collection-tile{position:relative;isolation:isolate;overflow:hidden;min-height:218px;border:1px solid #ead9de;padding:22px 18px;text-align:left;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:10px;cursor:pointer;transition:transform .35s var(--ease),box-shadow .35s var(--ease);color:var(--ink)}
+.collection-tile:before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(145deg,#f8e6eb,#edcbd5)}
+.collection-tile:after{content:"";position:absolute;z-index:-1;width:180px;height:180px;border-radius:50%;right:-54px;top:-48px;border:1px solid #fff9;box-shadow:0 0 0 18px #fff2,0 0 0 36px #fff1;transition:transform .6s var(--ease)}
+.collection-tile:hover{transform:translateY(-4px);box-shadow:0 16px 32px #8e465c17}
+.collection-tile:hover:after{transform:scale(1.12) rotate(15deg)}
+.collection-occasion:before{background:linear-gradient(145deg,#f1e9e3,#d8c1bc)}
+.collection-everyday:before{background:linear-gradient(145deg,#f3e6dc,#e4d3c2)}
+.collection-budget:before{background:linear-gradient(145deg,#f8e5e9,#e7b8c6)}
+.collection-number{font-size:8px;letter-spacing:1.5px;line-height:1.6;color:#79535f}
+.collection-tile strong{font:clamp(22px,2.1vw,30px)/1.05 var(--serif);font-weight:500;letter-spacing:-.6px}
+.collection-tile strong em{color:var(--rose-dark);font-weight:500}
+.collection-tile small{font-size:9px;line-height:1.7;max-width:190px;color:#6e5960}
+.curated-disclaimer{font-size:9px;line-height:1.8;color:var(--muted);margin-bottom:32px}
+@media(max-width:900px){.curated-collections{grid-template-columns:repeat(2,minmax(0,1fr))}.collection-tile{min-height:190px}}
+@media(max-width:460px){.curated-collections{gap:9px}.collection-tile{min-height:174px;padding:17px 13px}.collection-tile strong{font-size:23px}.collection-tile small{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.collection-tile,.collection-tile:after{transition:none}}
