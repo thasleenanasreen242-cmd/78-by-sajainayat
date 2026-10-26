@@ -143,3 +143,57 @@ const revealObserver = "IntersectionObserver" in window ? new IntersectionObserv
 document.querySelectorAll(".reveal").forEach(node => { if (revealObserver) revealObserver.observe(node); else node.classList.add("is-visible"); });
 $("year").textContent = new Date().getFullYear();
 renderProducts(); renderSavedCount();
+
+
+// Subtle pointer-driven 3D depth on desktop; touch and reduced-motion users stay comfortable.
+(() => {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (reduceMotion || !finePointer) return;
+
+  const hero = document.querySelector(".hero-visual");
+  if (hero) {
+    hero.addEventListener("pointermove", (event) => {
+      const rect = hero.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      hero.style.transform = `perspective(1100px) rotateY(${x * 5}deg) rotateX(${-y * 4}deg)`;
+      const image = hero.querySelector(".hero-image-main");
+      if (image) image.style.transform = `rotateY(${x * -2}deg) rotateX(${y * 2}deg)`;
+      const stamp = hero.querySelector(".hero-image-stamp");
+      if (stamp) stamp.style.transform = `translateZ(75px) rotate(${8 + x * 5}deg) translateY(${y * -5}px)`;
+      const note = hero.querySelector(".floating-note");
+      if (note) note.style.transform = `translateZ(55px) rotate(${-7 + x * 3}deg) translateY(${y * -7}px)`;
+    });
+    hero.addEventListener("pointerleave", () => {
+      hero.style.transform = "";
+      const image = hero.querySelector(".hero-image-main");
+      if (image) image.style.transform = "";
+      const stamp = hero.querySelector(".hero-image-stamp");
+      if (stamp) stamp.style.transform = "";
+      const note = hero.querySelector(".floating-note");
+      if (note) note.style.transform = "";
+    });
+  }
+
+  const grid = document.getElementById("productGrid");
+  if (!grid) return;
+  const addTilt = () => {
+    grid.querySelectorAll(".product-card").forEach(card => {
+      if (card.dataset.tiltReady) return;
+      card.dataset.tiltReady = "true";
+      const photo = card.querySelector(".product-photo");
+      if (!photo) return;
+      card.addEventListener("pointermove", event => {
+        const rect = photo.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        photo.style.transform = `rotateY(${x * 7}deg) rotateX(${-y * 7}deg)`;
+      });
+      card.addEventListener("pointerleave", () => { photo.style.transform = ""; });
+    });
+  };
+  addTilt();
+  const observer = new MutationObserver(addTilt);
+  observer.observe(grid, { childList: true });
+})();
