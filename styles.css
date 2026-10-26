@@ -111,3 +111,23 @@ body{background:var(--cream);letter-spacing:.01em}
 .tryon-look-card p:last-child{font-size:11px;line-height:1.8;color:#89777d}
 .tryon-disclaimer{margin:16px 0}
 @media(max-width:700px){.tryon-room{grid-template-columns:1fr;gap:30px}.tryon-preview{max-height:500px}.tryon-style-panel{padding:0}.tryon-look-card{grid-template-columns:minmax(110px,.65fr) 1fr}.tryon-moods{gap:7px}.tryon-mood{font-size:9px;padding:12px 9px}}
+
+
+/* AI virtual try-on */
+.tryon-garment-block{margin-top:28px;padding-top:25px;border-top:1px solid #ead9de}
+.button-outline{border-color:#b8667b;color:#8e465c;background:transparent}
+.button-outline:hover{background:#f7e5e9}
+.garment-upload-preview{min-height:145px;aspect-ratio:5/3;background:#fffaf7;border:1px dashed #d4a0af;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#89777d;font:17px var(--serif);text-align:center;padding:12px}
+.garment-upload-preview img{width:100%;height:100%;max-height:260px;object-fit:contain}
+.tryon-result{position:relative;min-height:380px;aspect-ratio:3/4;max-height:620px;background:linear-gradient(145deg,#efd1d9,#fffaf7);border:1px solid #ead9de;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.tryon-result>img{width:100%;height:100%;object-fit:contain;background:#fffaf7}
+.tryon-result-empty{display:flex;flex-direction:column;align-items:center;gap:11px;text-align:center;padding:24px;color:#8e465c}
+.tryon-result-empty span{font:58px var(--serif)}
+.tryon-result-empty strong{font:25px var(--serif);font-weight:500}
+.tryon-result-empty small{font:10px var(--sans);color:#89777d}
+.tryon-generate{width:100%;margin-top:16px;cursor:pointer}
+.tryon-generate:disabled{opacity:.65;cursor:wait;transform:none}
+.tryon-status{font-size:11px;line-height:1.8;color:#8e465c;min-height:24px}
+.tryon-status.error{color:#a22e48}
+.tryon-disclaimer{font-size:10px;line-height:1.8;color:#89777d}
+@media(max-width:700px){.tryon-result{min-height:300px;max-height:520px}.tryon-garment-block{margin-top:24px}.garment-upload-preview{min-height:120px}}
