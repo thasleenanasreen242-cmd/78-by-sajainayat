@@ -151,3 +151,57 @@ body{background:var(--cream);letter-spacing:.01em}
 .enquiry-submit{width:100%;margin-top:22px;cursor:pointer}
 .enquiry-footnote{font-size:9px;line-height:1.7;text-align:center;color:var(--muted);margin:12px 0 0}
 @media(max-width:500px){.enquiry-form{padding:42px 20px 24px}.enquiry-product img{width:55px;height:68px}}
+
+/* Signature brand experience: welcome, motion, packaging and reviews */
+.brand-loader{position:fixed;inset:0;z-index:9999;background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:opacity .55s var(--ease),visibility .55s}
+.loader-mark{font:italic 76px/.95 var(--serif);color:var(--rose);letter-spacing:-5px}
+.brand-loader>span{font:25px var(--serif);color:var(--ink)}
+.brand-loader>small{font:8px var(--sans);letter-spacing:3px;color:var(--muted);margin-top:3px}
+.loader-line{height:1px;width:100px;background:var(--line);margin-top:24px;overflow:hidden}
+.loader-line i{display:block;width:45%;height:100%;background:var(--rose);animation:loader-sweep 1.15s ease-in-out infinite}
+body.site-loading{overflow:hidden}
+body.site-ready .brand-loader{opacity:0;visibility:hidden;pointer-events:none}
+@keyframes loader-sweep{from{transform:translateX(-110%)}to{transform:translateX(240%)}}
+html{scroll-behavior:smooth}
+main{animation:page-arrive .7s var(--ease) both}
+@keyframes page-arrive{from{opacity:.75;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.packaging-section{background:linear-gradient(135deg,#fffaf7 0%,#f8e8eb 58%,#f4dfe5 100%);overflow:hidden}
+.packaging-layout{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(40px,8vw,110px)}
+.packaging-art{position:relative;min-height:390px;display:grid;place-items:center;isolation:isolate}
+.packaging-shadow{position:absolute;bottom:62px;width:280px;height:45px;border-radius:50%;background:#6b38441b;filter:blur(12px)}
+.gift-box{position:relative;width:230px;height:185px;background:linear-gradient(135deg,#f0d3dc,#e8b9c8);box-shadow:inset -15px -5px 30px #b8667b20,16px 22px 30px #8e465c16;transform:rotate(-5deg);animation:box-float 5s ease-in-out infinite}
+.gift-lid{position:absolute;top:-23px;left:-10px;width:250px;height:36px;background:linear-gradient(120deg,#f9e8ed,#e9bdca);box-shadow:0 6px 10px #8e465c14}
+.gift-ribbon{position:absolute;background:#b8667b}
+.ribbon-vertical{left:95px;top:-23px;bottom:0;width:39px;background:linear-gradient(90deg,#b8667b,#d99aaa,#b8667b)}
+.ribbon-horizontal{left:0;right:0;top:62px;height:24px;background:linear-gradient(#d79aaa,#b8667b,#d79aaa)}
+.gift-bow{position:absolute;top:-57px;left:91px;width:46px;height:42px}
+.gift-bow i{position:absolute;width:31px;height:23px;border:8px solid #b8667b;border-radius:70% 45% 65% 35%;transform:rotate(28deg)}
+.gift-bow i:nth-child(2){left:18px;transform:rotate(65deg) scaleX(-1)}
+.gift-bow b{position:absolute;left:18px;top:14px;width:13px;height:13px;border-radius:50%;background:#8e465c}
+.gift-sticker{position:absolute;right:17px;bottom:17px;width:57px;height:57px;border:1px solid #fff9;border-radius:50%;display:grid;place-content:center;text-align:center;font:italic 23px var(--serif);color:#8e465c;transform:rotate(5deg)}
+.gift-sticker small{font:5px var(--sans);letter-spacing:1px}
+.packaging-sparkle{position:absolute;color:var(--rose);font-size:27px}
+.sparkle-left{top:76px;left:15%}.sparkle-right{right:13%;top:130px}
+.packaging-art-note{position:absolute;bottom:20px;font-size:8px;letter-spacing:2px;color:var(--rose-dark)}
+@keyframes box-float{0%,100%{transform:rotate(-5deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-8px)}}
+.packaging-copy h2,.reviews-section .section-heading h2{font:clamp(34px,4.6vw,55px)/1.1 var(--serif);font-weight:500;letter-spacing:-1.4px;margin:14px 0 22px}
+.packaging-copy h2 em,.reviews-section h2 em{color:var(--rose-dark)}
+.packaging-copy>p:not(.eyebrow):not(.packaging-note){font-size:12px;line-height:2;color:var(--muted);max-width:470px}
+.packaging-promises{display:flex;flex-wrap:wrap;gap:10px 18px;margin:25px 0;color:var(--rose-dark);font-size:10px}
+.packaging-note{font-size:9px;color:var(--muted);line-height:1.7;margin-top:20px}
+.reviews-section{background:#fffaf7}
+.reviews-section .section-heading{max-width:660px;margin:0 auto 42px;text-align:center}
+.reviews-section .section-heading>p:last-child{font-size:12px;line-height:1.9;color:var(--muted)}
+.review-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.review-card{position:relative;min-height:265px;padding:28px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;align-items:flex-start}
+.review-card-featured{background:#f7e5e9;border-color:#f0d2db}
+.review-quote{font:70px/.7 var(--serif);color:#d9a2b1}
+.review-stars{font-size:15px;letter-spacing:3px;color:var(--rose);margin:15px 0}
+.review-card h3{font:24px/1.2 var(--serif);font-weight:500;margin:8px 0 12px}
+.review-card p:not(.eyebrow){font-size:11px;line-height:1.9;color:var(--muted);margin:0 0 20px}
+.review-signature{margin-top:auto;font:italic 14px var(--serif);color:var(--rose-dark)}
+.review-flower{font-size:28px;color:var(--rose);margin-bottom:22px}
+.review-card .button{margin-top:auto}
+.review-trust{text-align:center;font-size:9px;line-height:1.8;color:var(--muted);margin-top:24px}
+@media(max-width:760px){.packaging-layout{grid-template-columns:1fr;gap:25px}.packaging-art{min-height:310px}.packaging-copy{padding-bottom:8px}.review-grid{grid-template-columns:1fr}.review-card{min-height:220px}.reviews-section .section-heading{margin-bottom:28px}}
+@media(prefers-reduced-motion:reduce){.brand-loader,.brand-loader *,.gift-box,main{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
