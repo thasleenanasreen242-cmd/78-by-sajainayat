@@ -1,4 +1,6 @@
 const INSTAGRAM_URL = "https://www.instagram.com/78_bysajainayat/";
+const WHATSAPP_URL = "https://wa.me/message/7XBYWSW3DGIGM1";
+let enquiryProductId = null;
 const products = [
   {id:"p1",name:"Everyday Muse",category:"Style",description:"Easy, effortless style inspiration.",image:"photo-1483985988355-763728e1935b",tag:"The edit"},
   {id:"p2",name:"Soft Blush Bag",category:"Bags",description:"A sweet finishing-touch inspiration.",image:"photo-1548036328-c9fa89d128fa",tag:"Loved"},
@@ -71,13 +73,18 @@ function toggleSaved(id) {
 function askAbout(id) {
   const product = products.find(p => p.id === id);
   if (!product) return;
-  toast("Opening Instagram — ask us about " + product.name + " ♡");
-  window.open(INSTAGRAM_URL, "_blank", "noopener,noreferrer");
+  enquiryProductId = id;
+  $("enquiryProduct").innerHTML = '<img src="' + product.imageUrl + '" alt=""><div><strong>' + safeText(product.name) + '</strong><small>' + safeText(product.category) + ' · ' + safeText(product.description) + '</small></div>';
+  $("enquirySize").value = "Not sure yet";
+  $("enquiryColour").value = "";
+  $("enquiryNotes").value = "";
+  $("enquiryDialog").showModal();
+  $("enquirySize").focus();
 }
 function showQuickView(id) {
   const p = products.find(item => item.id === id);
   if (!p) return;
-  $("quickViewContent").innerHTML = `<div class="quick-content"><img src="${p.imageUrl}" alt="${safeText(p.name)} editorial inspiration"><div class="quick-copy"><p class="eyebrow">${safeText(p.category)} · THE BOUTIQUE EDIT</p><h2>${safeText(p.name)}</h2><p>${safeText(p.description)} This image is style inspiration rather than a confirmed product listing. Message us to ask about real products, current availability and prices.</p><button class="save-button ${savedIds.has(id) ? "saved" : ""}" data-save="${id}" aria-pressed="${savedIds.has(id)}">${savedIds.has(id) ? "♥ Saved to favourites" : "♡ Save to favourites"}</button><br><button class="button button-dark" data-enquire="${id}">Ask us on Instagram ↗</button></div></div>`;
+  $("quickViewContent").innerHTML = `<div class="quick-content"><img src="${p.imageUrl}" alt="${safeText(p.name)} editorial inspiration"><div class="quick-copy"><p class="eyebrow">${safeText(p.category)} · THE BOUTIQUE EDIT</p><h2>${safeText(p.name)}</h2><p>${safeText(p.description)} This image is style inspiration rather than a confirmed product listing. Message us to ask about real products, current availability and prices.</p><button class="save-button ${savedIds.has(id) ? "saved" : ""}" data-save="${id}" aria-pressed="${savedIds.has(id)}">${savedIds.has(id) ? "♥ Saved to favourites" : "♡ Save to favourites"}</button><br><button class="button button-dark" data-enquire="${id}">Ask about this piece ↗</button></div></div>`;
   $("quickView").showModal();
 }
 function renderWishlist() {
@@ -131,6 +138,19 @@ $("wishlistOpen").addEventListener("click", openWishlist);
 $("wishlistClose").addEventListener("click", closeWishlist);
 $("drawerBackdrop").addEventListener("click", closeWishlist);
 $("quickClose").addEventListener("click", () => $("quickView").close());
+$("enquiryClose").addEventListener("click", () => $("enquiryDialog").close());
+$("enquiryDialog").addEventListener("click", event => { if (event.target === $("enquiryDialog")) $("enquiryDialog").close(); });
+$("enquiryForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const product = products.find(p => p.id === enquiryProductId);
+  if (!product) return;
+  const size = $("enquirySize").value;
+  const colour = $("enquiryColour").value.trim() || "Open to available colours";
+  const notes = $("enquiryNotes").value.trim();
+  const message = ["Hello 78 by Saja Inayat! ♡ I would like to enquire about this item.", "Item: " + product.name, "Category: " + product.category, "Preferred size: " + size, "Preferred colour: " + colour, notes ? "Additional details: " + notes : "", "Please confirm current availability, price and shipping options."].filter(Boolean).join(String.fromCharCode(10));
+  window.open(WHATSAPP_URL + "?text=" + encodeURIComponent(message), "_blank", "noopener,noreferrer");
+  $("enquiryDialog").close();
+});
 $("quickView").addEventListener("click", event => { if (event.target === $("quickView")) $("quickView").close(); });
 document.addEventListener("keydown", event => { if (event.key === "Escape" && $("wishlistDrawer").classList.contains("open")) closeWishlist(); });
 $("menuToggle").addEventListener("click", () => {
