@@ -131,3 +131,23 @@ body{background:var(--cream);letter-spacing:.01em}
 .tryon-status.error{color:#a22e48}
 .tryon-disclaimer{font-size:10px;line-height:1.8;color:#89777d}
 @media(max-width:700px){.tryon-result{min-height:300px;max-height:520px}.tryon-garment-block{margin-top:24px}.garment-upload-preview{min-height:120px}}
+
+/* Product-specific WhatsApp shopping assistant */
+.enquiry-dialog{position:relative;border:1px solid var(--line);padding:0;width:min(520px,calc(100% - 28px));max-width:520px;max-height:calc(100% - 28px);overflow:auto;background:var(--cream);color:var(--ink);box-shadow:0 20px 90px #20151b45}
+.enquiry-dialog::backdrop{background:#20151bd9;backdrop-filter:blur(3px)}
+.enquiry-form{padding:42px clamp(22px,5vw,42px) 30px}
+.enquiry-form h2{font:clamp(28px,5vw,38px)/1.12 var(--serif);font-weight:500;margin:0 0 12px}
+.enquiry-form h2 em{color:var(--rose-dark)}
+.enquiry-intro{font-size:11px;line-height:1.8;color:var(--muted);margin:0 0 22px}
+.enquiry-product{display:flex;align-items:center;gap:14px;background:#f7e5e9;border:1px solid var(--line);padding:10px;margin-bottom:22px}
+.enquiry-product img{width:62px;height:76px;object-fit:cover}
+.enquiry-product strong,.enquiry-product small{display:block}
+.enquiry-product strong{font:19px var(--serif);font-weight:500;margin-bottom:5px}
+.enquiry-product small{font-size:9px;line-height:1.6;color:var(--muted)}
+.enquiry-form label{display:block;font-size:10px;letter-spacing:.6px;margin:15px 0 7px}
+.enquiry-form select,.enquiry-form input,.enquiry-form textarea{display:block;width:100%;border:1px solid var(--line);border-radius:0;background:#fff;color:var(--ink);padding:12px;font:11px var(--sans);outline:none}
+.enquiry-form select:focus,.enquiry-form input:focus,.enquiry-form textarea:focus{border-color:var(--rose)}
+.enquiry-form textarea{resize:vertical;min-height:80px}
+.enquiry-submit{width:100%;margin-top:22px;cursor:pointer}
+.enquiry-footnote{font-size:9px;line-height:1.7;text-align:center;color:var(--muted);margin:12px 0 0}
+@media(max-width:500px){.enquiry-form{padding:42px 20px 24px}.enquiry-product img{width:55px;height:68px}}
