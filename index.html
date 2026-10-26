@@ -19,7 +19,7 @@
   <nav class="nav wrap" aria-label="Main navigation">
     <a class="brand" href="#home" aria-label="78 by Saja Inayat home"><span>78</span> by Saja Inayat<small>CURATED WITH LOVE</small></a>
     <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
-    <div class="nav-links" id="navLinks"><a href="#shop">The collection</a><a href="#story">Our story</a><a href="#contact">Say hello</a></div>
+    <div class="nav-links" id="navLinks"><a href="#shop">The collection</a><a href="#try-on">Virtual try-on</a><a href="#story">Our story</a><a href="#contact">Say hello</a></div>
     <div class="nav-actions"><button class="nav-icon" id="wishlistOpen" aria-label="View saved favourites">♡ <span id="savedCount">0</span></button><a class="nav-cta" href="https://wa.me/message/7XBYWSW3DGIGM1" target="_blank" rel="noopener noreferrer">Chat on WhatsApp ↗</a></div>
   </nav>
 </header>
@@ -33,6 +33,31 @@
 <section class="shop-section section-pad" id="shop"><div class="section-heading reveal"><p class="eyebrow">THE 78 EDIT</p><h2>Find your <em>statement look.</em></h2><p>Explore the collection. Found something you love? Chat with us on WhatsApp for availability, details and worldwide shipping.</p></div>
 <div class="shop-toolbar wrap"><div class="filter-list" id="filters" aria-label="Filter collection"><button class="filter-chip active" data-category="All" aria-pressed="true">All pieces <span>08</span></button><button class="filter-chip" data-category="Style" aria-pressed="false">Style</button><button class="filter-chip" data-category="Bags" aria-pressed="false">Bags</button><button class="filter-chip" data-category="Accessories" aria-pressed="false">Accessories</button><button class="filter-chip" data-category="Beauty" aria-pressed="false">Beauty & more</button></div><div class="shop-tools"><label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Find something lovely…" aria-label="Search collection"><button id="clearSearch" aria-label="Clear search" hidden>×</button></label><label class="sort-label"><span>Sort</span><select id="sortSelect" aria-label="Sort collection"><option value="featured">Featured</option><option value="az">Name A–Z</option><option value="za">Name Z–A</option></select></label></div></div>
 <div class="collection-status wrap"><span id="resultCount">Showing the edit</span><span>EDITORIAL INSPIRATION · WHATSAPP FOR CURRENT STOCK</span></div><div class="product-grid wrap" id="productGrid" aria-live="polite"></div><p class="catalogue-note wrap"><span>♡</span> Product imagery is for style inspiration. Message us on WhatsApp to confirm actual products, prices and availability.</p></section>
+
+<section class="tryon-section section-pad" id="try-on">
+  <div class="section-heading reveal"><p class="eyebrow">YOUR VERY OWN FITTING ROOM ♡</p><h2>Try a little <em>something new.</em></h2><p>Upload a photo, explore an outfit mood and save your favourites before you message us. This is a styling preview, not a realistic AI garment overlay.</p></div>
+  <div class="tryon-room wrap">
+    <div class="tryon-upload-panel">
+      <div class="tryon-preview" id="tryonPreview"><div class="tryon-placeholder"><span>♡</span><strong>Your style, your way.</strong><small>Upload a full-length photo to begin</small></div><img id="tryonUserImage" alt="Your uploaded fitting-room photo" hidden></div>
+      <label class="button button-dark tryon-upload-button" for="tryonFile">Upload your photo ↗</label>
+      <input id="tryonFile" type="file" accept="image/*" hidden>
+      <button class="tryon-clear" id="tryonClear" type="button" hidden>Remove photo</button>
+      <p class="tryon-privacy">Your photo stays in this browser session and is not uploaded to our website.</p>
+    </div>
+    <div class="tryon-style-panel">
+      <p class="eyebrow">PICK YOUR MOOD</p><div class="tryon-moods" role="group" aria-label="Choose a style mood">
+        <button class="tryon-mood active" data-mood="soft" aria-pressed="true"><span>♡</span> Soft & romantic</button>
+        <button class="tryon-mood" data-mood="classic" aria-pressed="false"><span>✦</span> Classic chic</button>
+        <button class="tryon-mood" data-mood="weekend" aria-pressed="false"><span>☼</span> Weekend ease</button>
+        <button class="tryon-mood" data-mood="glam" aria-pressed="false"><span>✧</span> A little glam</button>
+      </div>
+      <div class="tryon-look-card"><img id="tryonLookImage" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=700&q=82" alt="Soft and romantic outfit inspiration"><div><p class="product-category" id="tryonLookCategory">STYLE INSPIRATION</p><h3 id="tryonLookTitle">Soft & romantic</h3><p id="tryonLookDescription">Gentle tones and effortless details for a look that feels like you.</p></div></div>
+      <p class="tryon-disclaimer">Outfit images are inspiration only. This preview does not digitally fit garments to your body. Ask us on WhatsApp about real items, sizes, prices and availability.</p>
+      <a class="button button-dark" id="tryonEnquire" href="https://wa.me/message/7XBYWSW3DGIGM1" target="_blank" rel="noopener noreferrer">Ask about this style ↗</a>
+    </div>
+  </div>
+</section>
+
 <section class="story-section" id="story"><div class="story-image reveal"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=85" loading="lazy" alt="Friends enjoying fashion and personal style"><span class="story-image-caption">THE SIGNATURE EDIT · 78 BY SAJA INAYAT</span></div><div class="story-copy reveal"><p class="eyebrow">HELLO, LOVELY</p><h2>Style is personal.<br><em>Joy is universal.</em></h2><p>Welcome to 78 by Saja Inayat — a fashion destination for expressing your own identity. Flaunt in our attire, make every look your own and be your own label.</p><p>Based near Vaidyar Smarakam, Kondotty, we welcome enquiries from near and far. Contact us on WhatsApp for product details and worldwide shipping information.</p><a class="button button-dark" href="https://wa.me/message/7XBYWSW3DGIGM1" target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp <span>↗</span></a><span class="story-doodle">with love, always <b>♡</b></span></div></section>
 <section class="love-note section-pad"><div class="love-note-inner reveal"><span class="giant-heart">♡</span><p class="eyebrow">YOUR STYLE. YOUR RULES.</p><h2>Flaunt in our attire.<br><em>Be your own label.</em></h2><p>Wear what makes you feel confident. Make it yours.</p><a href="#shop" class="text-link">Find your little something <span>↗</span></a><span class="decor-star">✳</span></div></section>
 <section class="contact-section" id="contact"><div class="contact-orbit orbit-a"></div><div class="contact-orbit orbit-b"></div><div class="contact-inner reveal"><p class="eyebrow">LET'S CHAT ON WHATSAPP ♡</p><h2>Something caught<br>your <em>eye?</em></h2><p>Worldwide shipping 🌎. Visit us near Vaidyar Smarakam, Kondotty, or message us on WhatsApp for product details and availability.</p><a class="button button-light" href="https://wa.me/message/7XBYWSW3DGIGM1" target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp <span>↗</span></a><span class="contact-sparkle">✧</span></div></section>
