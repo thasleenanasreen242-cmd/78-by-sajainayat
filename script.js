@@ -197,3 +197,60 @@ renderProducts(); renderSavedCount();
   const observer = new MutationObserver(addTilt);
   observer.observe(grid, { childList: true });
 })();
+
+
+// Virtual styling room: local photo preview + outfit inspiration selection.
+(() => {
+  const fileInput = document.getElementById("tryonFile");
+  const userImage = document.getElementById("tryonUserImage");
+  const placeholder = document.querySelector(".tryon-placeholder");
+  const clearButton = document.getElementById("tryonClear");
+  if (!fileInput || !userImage || !placeholder || !clearButton) return;
+  let localPhotoUrl = null;
+  const moods = {
+    soft: {title:"Soft & romantic",category:"STYLE INSPIRATION",description:"Gentle tones and effortless details for a look that feels like you.",image:"photo-1490481651871-ab68de25d43d",alt:"Soft and romantic outfit inspiration",message:"Hello 78 by Saja Inayat! I'd love to ask about your soft and romantic style collection."},
+    classic: {title:"Classic chic",category:"TIMELESS STYLE",description:"Clean lines and timeless pieces for a polished everyday look.",image:"photo-1483985988355-763728e1935b",alt:"Classic chic fashion inspiration",message:"Hello 78 by Saja Inayat! I'd love to ask about your classic chic style collection."},
+    weekend: {title:"Weekend ease",category:"OFF-DUTY EDIT",description:"Relaxed, easy-going inspiration for your off-duty moments.",image:"photo-1485230895905-ec40ba36b9bc",alt:"Relaxed weekend fashion inspiration",message:"Hello 78 by Saja Inayat! I'd love to ask about your weekend style collection."},
+    glam: {title:"A little glam",category:"THE STATEMENT EDIT",description:"A touch of sparkle and confidence for your next special moment.",image:"photo-1535632066927-ab7c9ab60908",alt:"Glam accessories inspiration",message:"Hello 78 by Saja Inayat! I'd love to ask about glamorous occasion styles."}
+  };
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files && fileInput.files[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) { toast("Please choose an image file."); fileInput.value = ""; return; }
+    if (file.size > 12 * 1024 * 1024) { toast("Please choose a photo smaller than 12 MB."); fileInput.value = ""; return; }
+    if (localPhotoUrl) URL.revokeObjectURL(localPhotoUrl);
+    localPhotoUrl = URL.createObjectURL(file);
+    userImage.src = localPhotoUrl;
+    userImage.hidden = false;
+    placeholder.hidden = true;
+    clearButton.hidden = false;
+    toast("Photo ready in your styling room ♡");
+  });
+  clearButton.addEventListener("click", () => {
+    if (localPhotoUrl) URL.revokeObjectURL(localPhotoUrl);
+    localPhotoUrl = null;
+    userImage.removeAttribute("src");
+    userImage.hidden = true;
+    placeholder.hidden = false;
+    clearButton.hidden = true;
+    fileInput.value = "";
+  });
+  document.querySelectorAll(".tryon-mood").forEach(button => button.addEventListener("click", () => {
+    const mood = moods[button.dataset.mood];
+    if (!mood) return;
+    document.querySelectorAll(".tryon-mood").forEach(item => {
+      const active = item === button;
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    const image = document.getElementById("tryonLookImage");
+    image.src = `https://images.unsplash.com/${mood.image}?auto=format&fit=crop&w=700&q=82`;
+    image.alt = mood.alt;
+    document.getElementById("tryonLookTitle").textContent = mood.title;
+    document.getElementById("tryonLookCategory").textContent = mood.category;
+    document.getElementById("tryonLookDescription").textContent = mood.description;
+    const message = encodeURIComponent(mood.message);
+    document.getElementById("tryonEnquire").href = `https://wa.me/message/7XBYWSW3DGIGM1?text=${message}`;
+  }));
+  window.addEventListener("beforeunload", () => { if (localPhotoUrl) URL.revokeObjectURL(localPhotoUrl); });
+})();
