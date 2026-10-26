@@ -35,25 +35,24 @@
 <div class="collection-status wrap"><span id="resultCount">Showing the edit</span><span>EDITORIAL INSPIRATION · WHATSAPP FOR CURRENT STOCK</span></div><div class="product-grid wrap" id="productGrid" aria-live="polite"></div><p class="catalogue-note wrap"><span>♡</span> Product imagery is for style inspiration. Message us on WhatsApp to confirm actual products, prices and availability.</p></section>
 
 <section class="tryon-section section-pad" id="try-on">
-  <div class="section-heading reveal"><p class="eyebrow">YOUR VERY OWN FITTING ROOM ♡</p><h2>Try a little <em>something new.</em></h2><p>Upload a photo, explore an outfit mood and save your favourites before you message us. This is a styling preview, not a realistic AI garment overlay.</p></div>
+  <div class="section-heading reveal"><p class="eyebrow">YOUR VERY OWN FITTING ROOM ♡</p><h2>See it on <em>you.</em></h2><p>Upload a photo of yourself and a clear photo of a garment to create an AI-powered virtual try-on preview.</p></div>
   <div class="tryon-room wrap">
     <div class="tryon-upload-panel">
-      <div class="tryon-preview" id="tryonPreview"><div class="tryon-placeholder"><span>♡</span><strong>Your style, your way.</strong><small>Upload a full-length photo to begin</small></div><img id="tryonUserImage" alt="Your uploaded fitting-room photo" hidden></div>
+      <p class="eyebrow">01 · YOUR PHOTO</p>
+      <div class="tryon-preview" id="tryonPreview"><div class="tryon-placeholder" id="tryonUserPlaceholder"><span>♡</span><strong>Your style, your way.</strong><small>Choose a clear, full-length photo</small></div><img id="tryonUserImage" alt="Your uploaded fitting-room photo" hidden></div>
       <label class="button button-dark tryon-upload-button" for="tryonFile">Upload your photo ↗</label>
       <input id="tryonFile" type="file" accept="image/*" hidden>
       <button class="tryon-clear" id="tryonClear" type="button" hidden>Remove photo</button>
-      <p class="tryon-privacy">Your photo stays in this browser session and is not uploaded to our website.</p>
+      <p class="tryon-privacy">Choose a photo you have permission to use. Your photo is sent securely to the AI try-on provider for processing.</p>
+      <div class="tryon-garment-block"><p class="eyebrow">02 · GARMENT PHOTO</p><div class="garment-upload-preview" id="garmentPreview"><span id="garmentPlaceholder">Your garment goes here ♡</span><img id="tryonGarmentImage" alt="Selected garment photo" hidden></div><label class="button button-outline tryon-upload-button" for="garmentFile">Upload garment photo ↗</label><input id="garmentFile" type="file" accept="image/*" hidden><button class="tryon-clear" id="garmentClear" type="button" hidden>Remove garment</button><p class="tryon-privacy">Use a clear product photo with the garment visible and little background clutter.</p></div>
     </div>
     <div class="tryon-style-panel">
-      <p class="eyebrow">PICK YOUR MOOD</p><div class="tryon-moods" role="group" aria-label="Choose a style mood">
-        <button class="tryon-mood active" data-mood="soft" aria-pressed="true"><span>♡</span> Soft & romantic</button>
-        <button class="tryon-mood" data-mood="classic" aria-pressed="false"><span>✦</span> Classic chic</button>
-        <button class="tryon-mood" data-mood="weekend" aria-pressed="false"><span>☼</span> Weekend ease</button>
-        <button class="tryon-mood" data-mood="glam" aria-pressed="false"><span>✧</span> A little glam</button>
-      </div>
-      <div class="tryon-look-card"><img id="tryonLookImage" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=700&q=82" alt="Soft and romantic outfit inspiration"><div><p class="product-category" id="tryonLookCategory">STYLE INSPIRATION</p><h3 id="tryonLookTitle">Soft & romantic</h3><p id="tryonLookDescription">Gentle tones and effortless details for a look that feels like you.</p></div></div>
-      <p class="tryon-disclaimer">Outfit images are inspiration only. This preview does not digitally fit garments to your body. Ask us on WhatsApp about real items, sizes, prices and availability.</p>
-      <a class="button button-dark" id="tryonEnquire" href="https://wa.me/message/7XBYWSW3DGIGM1" target="_blank" rel="noopener noreferrer">Ask about this style ↗</a>
+      <p class="eyebrow">03 · YOUR AI PREVIEW</p>
+      <div class="tryon-result" id="tryonResult"><div class="tryon-result-empty"><span>✧</span><strong>Your look, reimagined.</strong><small>Your generated preview will appear here.</small></div><img id="tryonResultImage" alt="AI-generated virtual try-on result" hidden></div>
+      <button class="button button-dark tryon-generate" id="tryonGenerate" type="button"><span>✧</span> Create my virtual try-on</button>
+      <p class="tryon-status" id="tryonStatus" role="status" aria-live="polite">Upload both photos to begin. AI processing may take up to a minute.</p>
+      <p class="tryon-disclaimer">AI previews are illustrative, may contain errors and are not a guarantee of fit, size, colour or fabric appearance. Images are processed by FASHN AI. Do not upload sensitive or intimate images.</p>
+      <a class="button button-outline" id="tryonEnquire" href="https://wa.me/message/7XBYWSW3DGIGM1" target="_blank" rel="noopener noreferrer">Ask us about the garment ↗</a>
     </div>
   </div>
 </section>
