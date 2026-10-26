@@ -62,3 +62,23 @@ body{background:var(--cream);letter-spacing:.01em}
 .quick-view{background:#fffaf7}
 @media(min-width:1100px){.hero-copy{padding-left:1.5%}.section-heading{margin-bottom:52px}.shop-toolbar{margin-bottom:27px}}
 @media(max-width:700px){.nav{min-height:76px}.hero{padding-top:36px;padding-bottom:64px;gap:24px}.hero h1{font-size:clamp(49px,11.5vw,73px);letter-spacing:-2.3px}.hero-image-main{height:clamp(320px,96vw,440px)}.section-pad{padding:72px 0}.product-grid{gap:27px 13px}.brand{font-size:22px}}
+
+
+/* Interactive 3D boutique experience */
+@media (hover:hover) and (pointer:fine) {
+  .hero-visual { perspective: 1100px; transform-style: preserve-3d; transition: transform .18s ease-out; }
+  .hero-image-main { transform-style: preserve-3d; box-shadow: 0 28px 70px #8e465c18; transition: box-shadow .35s ease, transform .18s ease-out; }
+  .hero-image-main img { transform: translateZ(18px) scale(1.025); }
+  .hero-image-stamp { transform: translateZ(75px) rotate(8deg); transition: transform .25s ease-out, box-shadow .3s ease; }
+  .floating-note { transform: translateZ(55px) rotate(-7deg); transition: transform .25s ease-out; }
+  .hero-sparkle { transform: translateZ(90px); }
+  .product-card { perspective: 900px; transform-style: preserve-3d; }
+  .product-photo { transform-style: preserve-3d; transition: transform .18s ease-out, box-shadow .25s ease; will-change: transform; }
+  .product-photo img { transform: translateZ(20px) scale(1.035); }
+  .product-tag, .save-button { transform: translateZ(38px); }
+  .product-card:hover .product-photo { box-shadow: 0 22px 45px #8e465c20; }
+}
+.hero-visual, .hero-image-main, .hero-image-stamp, .floating-note, .product-photo { transform-style: preserve-3d; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual, .hero-image-main, .hero-image-stamp, .floating-note, .product-photo { transform: none !important; }
+}
