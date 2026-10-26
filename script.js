@@ -254,3 +254,116 @@ renderProducts(); renderSavedCount();
   }));
   window.addEventListener("beforeunload", () => { if (localPhotoUrl) URL.revokeObjectURL(localPhotoUrl); });
 })();
+
+
+// FASHN AI virtual try-on: photos are resized in-browser, sent to our serverless API,
+// and polled until the generated result is ready. API keys never reach the browser.
+(() => {
+  const userInput = document.getElementById("tryonFile");
+  const garmentInput = document.getElementById("garmentFile");
+  const generateButton = document.getElementById("tryonGenerate");
+  if (!userInput || !garmentInput || !generateButton) return;
+  const userImage = document.getElementById("tryonUserImage");
+  const garmentImage = document.getElementById("tryonGarmentImage");
+  const userPlaceholder = document.getElementById("tryonUserPlaceholder");
+  const garmentPlaceholder = document.getElementById("garmentPlaceholder");
+  const clearUser = document.getElementById("tryonClear");
+  const clearGarment = document.getElementById("garmentClear");
+  const resultImage = document.getElementById("tryonResultImage");
+  const resultEmpty = document.querySelector(".tryon-result-empty");
+  const status = document.getElementById("tryonStatus");
+  let userData = "";
+  let garmentData = "";
+  let running = false;
+
+  function setStatus(message, isError = false) {
+    status.textContent = message;
+    status.classList.toggle("error", isError);
+  }
+  function readAndResize(file) {
+    return new Promise((resolve, reject) => {
+      if (!file || !file.type.startsWith("image/")) return reject(new Error("Please choose a valid image file."));
+      if (file.size > 20 * 1024 * 1024) return reject(new Error("Please choose an image smaller than 20 MB."));
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error("Could not read that image. Please try another photo."));
+      reader.onload = () => {
+        const image = new Image();
+        image.onerror = () => reject(new Error("This image could not be opened. Please try another one."));
+        image.onload = () => {
+          const scale = Math.min(1, 900 / Math.max(image.naturalWidth, image.naturalHeight));
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+          canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL("image/jpeg", 0.78));
+        };
+        image.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+  userInput.addEventListener("change", async () => {
+    const file = userInput.files && userInput.files[0];
+    if (!file) return;
+    try {
+      userData = await readAndResize(file);
+      userImage.src = userData; userImage.hidden = false; userPlaceholder.hidden = true; clearUser.hidden = false;
+      setStatus(garmentData ? "Both photos are ready. Create your virtual try-on when you're ready." : "Your photo is ready. Now add a garment photo.");
+    } catch (error) { setStatus(error.message, true); userInput.value = ""; }
+  });
+  garmentInput.addEventListener("change", async () => {
+    const file = garmentInput.files && garmentInput.files[0];
+    if (!file) return;
+    try {
+      garmentData = await readAndResize(file);
+      garmentImage.src = garmentData; garmentImage.hidden = false; garmentPlaceholder.hidden = true; clearGarment.hidden = false;
+      setStatus(userData ? "Both photos are ready. Create your virtual try-on when you're ready." : "Garment photo ready. Now add your photo.");
+    } catch (error) { setStatus(error.message, true); garmentInput.value = ""; }
+  });
+  clearUser.addEventListener("click", () => {
+    userData = ""; userInput.value = ""; userImage.removeAttribute("src"); userImage.hidden = true; userPlaceholder.hidden = false; clearUser.hidden = true;
+    setStatus("Upload your photo and a garment photo to begin.");
+  });
+  clearGarment.addEventListener("click", () => {
+    garmentData = ""; garmentInput.value = ""; garmentImage.removeAttribute("src"); garmentImage.hidden = true; garmentPlaceholder.hidden = false; clearGarment.hidden = true;
+    setStatus("Upload a garment photo to create your AI preview.");
+  });
+  generateButton.addEventListener("click", async () => {
+    if (running) return;
+    if (!userData || !garmentData) { setStatus("Please upload both your photo and a garment photo first.", true); return; }
+    running = true; generateButton.disabled = true; resultImage.hidden = true; resultEmpty.hidden = false;
+    setStatus("Preparing your AI try-on… This can take up to a minute.");
+    const timeout = (ms) => new Promise((_, reject) => setTimeout(() => reject(new Error("This is taking longer than expected. Please try again in a moment.")), ms));
+    try {
+      const prediction = await Promise.race([fetch("/api/try-on", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({modelImage:userData, productImage:garmentData})
+      }).then(async response => {
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.message || "Could not start virtual try-on.");
+        return data;
+      }), timeout(25000)]);
+      if (!prediction.id) throw new Error("The AI provider did not return a prediction ID.");
+      const started = Date.now();
+      while (Date.now() - started < 80000) {
+        await new Promise(resolve => setTimeout(resolve, 3500));
+        const response = await fetch("/api/try-on-status?id=" + encodeURIComponent(prediction.id));
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.message || "Could not check the AI result.");
+        if (data.status === "completed" && data.output) {
+          resultImage.src = data.output; resultImage.hidden = false; resultEmpty.hidden = true;
+          setStatus("Your AI preview is ready ♡ Results are illustrative, so check real garment details with us.");
+          return;
+        }
+        if (data.status === "failed") throw new Error(data.message || "The AI could not create this preview. Try clearer photos.");
+        setStatus("Creating your preview… " + (data.status === "processing" ? "AI is working on your images." : "Waiting for the AI service."));
+      }
+      throw new Error("Your preview is still processing. Please try again shortly.");
+    } catch (error) {
+      setStatus(error.message || "Something went wrong. Please try again.", true);
+    } finally {
+      running = false; generateButton.disabled = false;
+    }
+  });
+})();
