@@ -2,14 +2,14 @@ const INSTAGRAM_URL = "https://www.instagram.com/78_bysajainayat/";
 const WHATSAPP_URL = "https://wa.me/message/7XBYWSW3DGIGM1";
 let enquiryProductId = null;
 const products = [
-  {id:"p1",name:"Everyday Muse",category:"Style",description:"Easy, effortless style inspiration.",image:"photo-1483985988355-763728e1935b",tag:"The edit"},
-  {id:"p2",name:"Soft Blush Bag",category:"Bags",description:"A sweet finishing-touch inspiration.",image:"photo-1548036328-c9fa89d128fa",tag:"Loved"},
-  {id:"p3",name:"Golden Hour Details",category:"Accessories",description:"Little details with a little sparkle.",image:"photo-1611652022419-a9419f74343d",tag:"Little details"},
-  {id:"p4",name:"Weekend Mood",category:"Style",description:"A little inspiration for off-duty days.",image:"photo-1490481651871-ab68de25d43d",tag:"Weekend edit"},
-  {id:"p5",name:"Petal Pink Pouch",category:"Bags",description:"A pretty everyday companion idea.",image:"photo-1584917865442-de89df76afd3",tag:"Sweet pick"},
-  {id:"p6",name:"Little Sparkle",category:"Accessories",description:"A hint of shine for your everyday.",image:"photo-1535632066927-ab7c9ab60908",tag:"Finishing touch"},
-  {id:"p7",name:"Self-care Moment",category:"Beauty",description:"A tiny reminder to take a moment.",image:"photo-1608248543803-ba4f8c70ae0b",tag:"Me time"},
-  {id:"p8",name:"The Classic Look",category:"Style",description:"Timeless inspiration worth saving.",image:"photo-1485230895905-ec40ba36b9bc",tag:"Classic"}
+  {id:"p1",name:"Everyday Muse",category:"Style",description:"Easy, effortless style inspiration.",image:"photo-1483985988355-763728e1935b",tag:"The edit",edits:["dropped","everyday"]},
+  {id:"p2",name:"Soft Blush Bag",category:"Bags",description:"A sweet finishing-touch inspiration.",image:"photo-1548036328-c9fa89d128fa",tag:"Loved",edits:["occasion","everyday"]},
+  {id:"p3",name:"Golden Hour Details",category:"Accessories",description:"Little details with a little sparkle.",image:"photo-1611652022419-a9419f74343d",tag:"Little details",edits:["occasion","budget"]},
+  {id:"p4",name:"Weekend Mood",category:"Style",description:"A little inspiration for off-duty days.",image:"photo-1490481651871-ab68de25d43d",tag:"Weekend edit",edits:["dropped","everyday"]},
+  {id:"p5",name:"Petal Pink Pouch",category:"Bags",description:"A pretty everyday companion idea.",image:"photo-1584917865442-de89df76afd3",tag:"Sweet pick",edits:["dropped","everyday","budget"]},
+  {id:"p6",name:"Little Sparkle",category:"Accessories",description:"A hint of shine for your everyday.",image:"photo-1535632066927-ab7c9ab60908",tag:"Finishing touch",edits:["occasion","budget"]},
+  {id:"p7",name:"Self-care Moment",category:"Beauty",description:"A tiny reminder to take a moment.",image:"photo-1608248543803-ba4f8c70ae0b",tag:"Me time",edits:["everyday","budget"]},
+  {id:"p8",name:"The Classic Look",category:"Style",description:"Timeless inspiration worth saving.",image:"photo-1485230895905-ec40ba36b9bc",tag:"Classic",edits:["occasion","everyday"]}
 ].map(p => ({...p, imageUrl: `https://images.unsplash.com/${p.image}?auto=format&fit=crop&w=760&q=82`}));
 
 const $ = (id) => document.getElementById(id);
@@ -99,6 +99,25 @@ function closeWishlist() {
   $("wishlistDrawer").classList.remove("open"); $("wishlistDrawer").setAttribute("aria-hidden","true");
   document.body.classList.remove("drawer-open"); $("wishlistOpen").focus();
 }
+document.querySelector(".curated-collections").addEventListener("click", event => {
+  const tile = event.target.closest("[data-collection]");
+  if (!tile) return;
+  const edit = tile.dataset.collection;
+  const labels = {dropped:"Just Dropped",occasion:"The Occasion Edit",everyday:"Everyday Essentials",budget:"Under ₹999"};
+  $("searchInput").value = "";
+  $("sortSelect").value = "featured";
+  activeCategory = "All";
+  $("filters").querySelectorAll("[data-category]").forEach(item => {
+    const active = item.dataset.category === "All";
+    item.classList.toggle("active", active);
+    item.setAttribute("aria-pressed", String(active));
+  });
+  const chosen = products.filter(product => product.edits.includes(edit));
+  $("productGrid").innerHTML = chosen.map(productCard).join("");
+  $("resultCount").textContent = labels[edit] + " · " + chosen.length + " curated picks";
+  $("clearSearch").hidden = true;
+  document.querySelector(".shop-toolbar").scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",block:"start"});
+};
 $("filters").addEventListener("click", event => {
   const button = event.target.closest("[data-category]");
   if (!button) return;
